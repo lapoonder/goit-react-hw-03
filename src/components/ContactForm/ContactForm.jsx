@@ -23,15 +23,14 @@ const ContactFormSchema = Yup.object().shape({
 const initialValues = {
   name: '',
   number: '',
-  id: nanoid(),
 };
 
 const ContactForm = ({ onAdd }) => {
   const nameFieldId = useId();
   const numberFieldId = useId();
-  const recordIdFieldId = useId();
 
   const handleSubmit = (values, actions) => {
+    values.id = nanoid();
     onAdd(values);
     actions.resetForm();
   };
@@ -54,8 +53,6 @@ const ContactForm = ({ onAdd }) => {
           <Field type="tel" name="number" id={numberFieldId} />
           <ErrorMessage name="number" component="span" />
         </div>
-
-        <Field type="hidden" name="id" id={recordIdFieldId} rows="5" />
 
         <button type="submit" className={clsx(css.btnForm)}>
           Add contact
